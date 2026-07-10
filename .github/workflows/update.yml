@@ -2,8 +2,10 @@ name: Update FP Data
 
 permissions:
   contents: write
-  
+
 on:
+  push:
+    branches: [ main ]
   schedule:
     - cron: '1 * * * *'
   workflow_dispatch:
