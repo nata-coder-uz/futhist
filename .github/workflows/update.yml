@@ -1,5 +1,8 @@
 name: Update FP Data
 
+permissions:
+  contents: write
+  
 on:
   schedule:
     - cron: '1 * * * *'
