@@ -1,0 +1,51 @@
+name: Daily Margin Sync
+
+on:
+  schedule:
+    # 06:00 UTC каждый день — можно подвинуть под своё расписание
+    - cron: '0 6 * * *'
+  workflow_dispatch: {}   # позволяет запускать вручную из вкладки Actions
+
+permissions:
+  contents: write   # нужно, чтобы workflow мог пушить CSV в data-storage
+
+jobs:
+  update-margin:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout scripts (main)
+        uses: actions/checkout@v4
+        with:
+          ref: main
+          path: scripts-repo
+
+      - name: Checkout data (data-storage)
+        uses: actions/checkout@v4
+        with:
+          ref: data-storage
+          path: data-repo
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: pip install requests
+
+      - name: Run daily margin check
+        run: python scripts-repo/scripts/update_margin_daily.py --datadir data-repo
+
+      - name: Commit and push if margin changed
+        run: |
+          cd data-repo
+          if [ -f .margin_changed ]; then
+            git config user.name "margin-bot"
+            git config user.email "actions@github.com"
+            git add margin_*.csv last_update_margin_*.txt
+            git commit -m "Daily margin update $(date -u +%Y-%m-%d)"
+            git push
+            echo "Изменения замечены и закоммичены."
+          else
+            echo "Маржа сегодня не менялась — коммитить нечего."
+          fi
