@@ -37,3 +37,5 @@ effective_date,rate_type,change,iso,current_initial,current_maintenance,new_init
 2026-05-01,Non-HRP,Decrease,USD,2700,2700,2400,2400,https://www.cmegroup.com/clearing/risk-management/files/EC-2020-to-present.pdf
 2026-07-10,HRP,Decrease,USD,2640,2400,2310,2100,https://www.cmegroup.com/clearing/risk-management/files/EC-2020-to-present.pdf
 2026-07-10,Non-HRP,Decrease,USD,2400,2400,2100,2100,https://www.cmegroup.com/clearing/risk-management/files/EC-2020-to-present.pdf
+2026-11-14,HRP,Decrease,USD,2310,2100,2090,1900,http://www.cmegroup.com/CmeWS/mvc/Margins/OUTRIGHT.csv?sortField=exchange&sortAsc=true
+2026-11-14,Non-HRP,Decrease,USD,2100,2100,1900,1900,http://www.cmegroup.com/CmeWS/mvc/Margins/OUTRIGHT.csv?sortField=exchange&sortAsc=true
